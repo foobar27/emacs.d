@@ -2,6 +2,9 @@
        :type builtin
        :description "Sensible configuration for backup files."
        :after (progn 
+		(setq my-backups-dir (concat my-tmp-dir "/backups"))
+		(setq my-autosaves-dir (concat my-tmp-dir "/autosaves"))
+
 		(make-variable-buffer-local 'backup-inhibited)
 		(setq bkup-backup-directory-info
 		      `((t ,my-backups-dir ok-create full-path prepend-name)))

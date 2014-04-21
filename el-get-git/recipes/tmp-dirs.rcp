@@ -3,6 +3,4 @@
        :description "Change some directories to a tmp-subdirectory."
        :after (progn
 		(setq url-cookie-file (concat my-tmp-dir "/url/cookies"))
-		(setq my-backups-dir (concat my-tmp-dir "/backups"))
-		(setq my-autosaves-dir (concat my-tmp-dir "/autosaves"))
 		))
