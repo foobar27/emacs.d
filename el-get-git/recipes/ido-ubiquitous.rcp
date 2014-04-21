@@ -1,0 +1,4 @@
+(:name ido-ubiquitous
+       :type github
+       :description "Use ido (nearly) everywhere."
+       :pkgname "DarwinAwardWinner/ido-ubiquitous")

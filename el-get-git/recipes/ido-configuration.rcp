@@ -1,9 +1,10 @@
 (:name ido-configuration
        :type builtin
-       :depends (flx)
+       :depends (flx ido-ubiquitous)
        :after (progn
 		(require 'ido)
 		(require 'flx-ido)
+		(require 'ido-ubiquitous)
 
 		(ido-mode t)
 		(flx-ido-mode 1)
