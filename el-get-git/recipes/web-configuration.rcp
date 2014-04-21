@@ -1,4 +1,5 @@
 (:name web-configuration
+       :description "Sensible web-development environment featuring html, css and js."
        :type builtin
        :depends (web-mode
 		 angular-snippets
@@ -13,6 +14,7 @@
 		(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 		(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 		(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+		(add-to-list 'auto-mode-alist '("\\.tern-project\\'" . js-mode))
 		(setq web-mode-enable-css-colorization t)
 		(setq web-mode-enable-auto-pairing t)
 		(setq web-mode-enable-block-face t)
@@ -39,7 +41,6 @@
 
 		(require 'angular-snippets)
 		;;(add-hook 'web-mode-hook #'(lambda () (set (make-local-variable 'yas-extra-modes) 'html-mode)))
-
 		(autoload 'tern-mode "tern.el" nil t)
 		(add-hook 'js-mode-hook (lambda () (tern-mode t)))
 		(eval-after-load 'tern
