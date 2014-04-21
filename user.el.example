@@ -15,9 +15,9 @@
 ;; TODO bbdb jabber
 (setq my-packages
       (append
-       '(elisp-slime-nav 
+       '(elisp-slime-nav-configuration
 
-	 smex
+	 smex-configuration
 	 scratch
 
 	 proced-jstack
@@ -25,14 +25,14 @@
 	 ace-jump-mode
 	 window-number
 
-	 browse-kill-ring
-	 undo-tree
+	 browse-kill-ring-configuration
+	 undo-tree-configuration
 	 multiple-cursors
 
 	 highlight-tail
-	 volatile-highlights
+	 volatile-highlights-configuration
 
-	 expand-region
+	 expand-region-configuration
 
 	 yasnippet
 
