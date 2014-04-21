@@ -16,6 +16,7 @@
 
 (setq user-emacs-directory my-base-dir)
 (setq custom-file (concat my-base-dir "/custom.el"))
+(load custom-file 'noerror)
 
 (add-to-list 'load-path (concat my-base-dir "/el-get"))
 
