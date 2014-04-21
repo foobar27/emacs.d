@@ -1,0 +1,3 @@
+(:name winner-mode
+       :after (progn
+		(winner-mode 1)))

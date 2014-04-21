@@ -1,0 +1,42 @@
+(:name auto-complete-configuration
+       :type builtin
+       :depends (auto-complete fuzzy popup)
+       :after (progn
+		(require 'auto-complete)
+		(require 'auto-complete-config)
+		(setq ac-comphist-file (concat my-tmp-dir "/ac-comphist.dat")
+		      ac-dwim t
+		      ac-use-menu-map t
+		      ac-quick-help-delay 1
+		      ac-quick-help-height 60
+		      ac-disable-inline t
+		      ac-show-menu-immediately-on-auto-complete t
+		      ac-auto-start 2
+		      ac-candidate-menu-min 0
+		      ac-auto-show-menu t)
+		(ac-flyspell-workaround)
+		(global-auto-complete-mode t)
+
+
+		(set-default 'ac-sources
+			     '(ac-source-dictionary
+			       ac-source-words-in-buffer
+			       ac-source-words-in-same-mode-buffers
+			       ac-source-semantic
+			       ac-source-yasnippet))
+
+		(dolist (mode '(magit-log-edit-mode log-edit-mode org-mode text-mode haml-mode
+						    sass-mode yaml-mode csv-mode espresso-mode haskell-mode
+						    html-mode nxml-mode sh-mode smarty-mode clojure-mode
+						    lisp-mode textile-mode markdown-mode tuareg-mode))
+		  (add-to-list 'ac-modes mode))
+
+
+		;; Key triggers
+		      
+		(define-key ac-completing-map (kbd "C-M-n") 'ac-next)
+		(define-key ac-completing-map (kbd "C-M-p") 'ac-previous)
+		(define-key ac-completing-map "\t" 'ac-complete)
+		(define-key ac-completing-map (kbd "M-RET") 'ac-help)
+		(define-key ac-completing-map "\r" 'nil)
+		))

@@ -1,0 +1,5 @@
+(:name mic-paren
+       :type emacswiki
+       :pkgname mic-paren
+:after (progn 
+	 (require 'mic-paren)))

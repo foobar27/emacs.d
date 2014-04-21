@@ -1,0 +1,5 @@
+(:name ibuffer-git
+       :type github
+       :description "Integrate ibuffer and git."
+       :pkgname "jrockway/ibuffer-git"
+       :website "http://jrockway.github.io/ibuffer-git/")

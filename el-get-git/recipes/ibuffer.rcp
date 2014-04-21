@@ -1,0 +1,6 @@
+(:name ibuffer
+       :type builtin
+       :after (progn
+		(require 'ibuffer)
+		(global-set-key "\C-x\C-b" 'ibuffer)))
+

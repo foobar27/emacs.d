@@ -1,0 +1,3 @@
+(:name javap-mode
+       :type github
+       :pkgname "hiredman/javap-mode")

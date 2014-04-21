@@ -1,0 +1,38 @@
+(:name vc-configuration
+       :description "Meaningful configuration for version-control (mainly git)"
+       :type builtin
+       :depends (magit git-gutter git-modes gh gist ibuffer-git)
+       :after (progn
+		(require 'ibuffer-git)
+		;;default to unified diffs
+		(setq diff-switches "-u"
+		      ediff-window-setup-function 'ediff-setup-windows-plain)
+
+		;; magit
+		(add-hook 'magit-log-edit-mode-hook
+			  (lambda ()
+			    (set-fill-column 80)
+			    (auto-fill-mode 1)))
+		(global-set-key (kbd "C-x g") 'magit-status)
+		
+		;; ibuffer-git
+		(setq ibuffer-formats '((mark modified read-only git-status-mini " "
+					      (name 18 18 :left :elide)
+					      " "
+					      (size 9 -1 :right)
+					      " "
+					      (git-status 8 8 :left :elide)
+					      " "
+					      (mode 16 16 :left :elide)
+					      " " filename-and-process)))
+
+		;; git-gutter
+		(setq git-gutter:window-width 2
+		      git-gutter:lighter " G-+"
+		      git-gutter:modified-sign "~ "
+		      git-gutter:added-sign "+ "
+		      git-gutter:deleted-sign "- "
+		      git-gutter:unchanged-sign "  ")
+		(global-git-gutter-mode t)
+))
+

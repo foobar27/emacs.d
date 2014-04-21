@@ -1,0 +1,11 @@
+(:name cpp-configuration
+       :type builtin
+       :description "Consistent configuration for C++ coding."
+       ;; TODO doxymacs
+       :depends (google-c-style 
+		 cmake-mode
+		 llvm-mode
+		 qmake-mode
+		 qml-mode 
+		 tff 
+		 po-mode))

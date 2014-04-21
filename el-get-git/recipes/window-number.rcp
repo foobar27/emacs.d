@@ -1,0 +1,6 @@
+(:name window-number
+       :type emacswiki
+       :features window-number
+       :after (progn
+		(window-number-mode 1)
+		(window-number-meta-mode 1)))

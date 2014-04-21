@@ -1,0 +1,3 @@
+(:name sysadmin-configuration
+       :type builtin
+       :depends (apache-mode nginx-mode crontab-mode pkgbuild-mode))

@@ -1,0 +1,18 @@
+(:name backup-configuration
+       :type builtin
+       :description "Sensible configuration for backup files."
+       :after (progn 
+		(make-variable-buffer-local 'backup-inhibited)
+		(setq bkup-backup-directory-info
+		      `((t ,my-backups-dir ok-create full-path prepend-name)))
+
+		(setq auto-save-file-name-transforms `((".*" ,(concat my-autosaves-dir "\\1") t)))
+		(setq backup-by-copying t)
+		(setq backup-directory-alist `((".*" . ,my-backups-dir)))
+		(setq auto-save-list-file-name (concat my-autosaves-dir "autosave-list"))
+
+		(setq delete-old-versions t
+		      kept-new-versions 6
+		      kept-old-versions 2
+		      version-control t)
+		))

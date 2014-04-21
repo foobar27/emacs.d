@@ -1,0 +1,10 @@
+(:name whitespace
+       :type builtin
+       :description "Some utils to handle whitespace"
+       (progn 
+	 (defun live-delete-whitespace-except-one ()
+	   (interactive)
+	   (just-one-space -1))
+
+	 (global-set-key (kbd "M-SPC ") 'live-delete-whitespace-except-one)
+	 ))

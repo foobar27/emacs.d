@@ -1,0 +1,18 @@
+(:name sebastien-window-keys
+       :type builtin
+       :description "Some, probably biased, keybindings for switching windows."
+       :after (progn
+		(global-set-key (kbd "C-c C-<left>") 'windmove-left)
+		(global-set-key (kbd "C-c C-<right>") 'windmove-right)
+		(global-set-key (kbd "C-c C-<up>") 'windmove-up)
+		(global-set-key (kbd "C-c C-<down>") 'windmove-down)
+		(global-set-key (kbd "C-c C-<next>") 'switch-to-minibuffer-window)
+
+		(global-set-key (kbd "C-<kp-4>") 'shrink-window-horizontally)
+		(global-set-key (kbd "C-<kp-6>") 'enlarge-window-horizontally)
+		(global-set-key (kbd "C-<kp-8>") 'shrink-window)
+		(global-set-key (kbd "C-<kp-2>") 'enlarge-window)
+
+		(define-key global-map (kbd "C-<kp-add>") 'text-scale-increase)
+		(define-key global-map (kbd "C-<kp-subtract>") 'text-scale-decrease)
+		))

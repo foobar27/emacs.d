@@ -1,0 +1,5 @@
+(:name wc-mode-configuration
+       :depends (wc-mode)
+       :type builtin
+       :after (progn
+		(setq wc-modeline-format "WC[%tc, %tw]")))

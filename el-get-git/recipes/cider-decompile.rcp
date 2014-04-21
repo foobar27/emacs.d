@@ -1,0 +1,6 @@
+(:name cider-decompile
+       :type github
+       :pkgname "clojure-emacs/cider-decompile"
+       :depends (javap-mode)
+       :after (progn
+		(require 'cider-decompile)))

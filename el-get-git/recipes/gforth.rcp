@@ -1,0 +1,8 @@
+(:name gforth
+       :description "major mode for editing (G)Forth sources"
+       :type github
+       :pkgname "smtlaissezfaire/gforth.el"
+       :after (progn
+		(autoload 'forth-mode "gforth.el")
+		(autoload 'forth-block-mode "gforth.el")
+		(add-to-list 'auto-mode-alist '("\\.fs$" . forth-mode))))

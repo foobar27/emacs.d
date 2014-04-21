@@ -1,0 +1,5 @@
+(:name undo-tree
+       :type builtin
+       :depends (undo-tree)
+       :after (progn
+		(global-undo-tree-mode)))

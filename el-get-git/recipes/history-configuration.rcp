@@ -1,0 +1,18 @@
+(:name history-configuration
+       :type builtin
+       :description "Sensible configuration for keeping the history"
+       :after (progn
+
+		(require 'saveplace)
+		(setq-default save-place t)
+		(setq save-place-file (concat my-tmp-dir "/places"))
+
+		;; savehist keeps track of some history
+		(setq savehist-additional-variables
+		      ;; search entries
+		      '(search ring regexp-search-ring)
+		      ;; save every minute
+		      savehist-autosave-interval 60
+		      ;; keep the home clean
+		      savehist-file (concat my-tmp-dir "/savehist")))
+       (savehist-mode t))

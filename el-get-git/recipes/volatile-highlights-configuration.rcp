@@ -1,0 +1,5 @@
+(:name volatile-highlights-configuration
+       :type builtin
+       :depends (volatile-highlights)
+       :after (progn
+		(volatile-highlights-mode t)))

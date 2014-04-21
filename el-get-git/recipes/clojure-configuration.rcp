@@ -1,0 +1,122 @@
+(:name clojure-configuration
+       :type builtin
+       :depends (clojure-mode 
+		 midje-mode 
+		 find-file-in-project
+		 align-cljlet
+		 clj-refactor
+		 cider
+		 cider-decompile
+		 midje-mode
+		 ac-nrepl
+		 )
+       :after (progn
+		(require 'clojure-mode)
+		(require 'midje-mode)
+		(require 'cider)
+		(require 'ac-nrepl)
+		(require 'subword)
+		(add-hook 'clojure-mode-hook 'midje-mode)
+		(eval-after-load 'find-file-in-project
+		  '(add-to-list 'ffip-patterns "*.clj"))
+
+		;; ;;Treat hyphens as a word character when transposing words
+		;; (defvar clojure-mode-with-hyphens-as-word-sep-syntax-table
+		;;   (let ((st (make-syntax-table clojure-mode-syntax-table)))
+		;;     (modify-syntax-entry ?- "w" st)
+		;;     st))
+
+		;; (defun live-transpose-words-with-hyphens (arg)
+		;;   "Treat hyphens as a word character when transposing words"
+		;;   (interactive "*p")
+		;;   (with-syntax-table clojure-mode-with-hyphens-as-word-sep-syntax-table
+		;;     (transpose-words arg)))
+
+		;; (define-key clojure-mode-map (kbd "M-t") 'live-transpose-words-with-hyphens)
+
+		(setq auto-mode-alist (append '(("\\.cljs$" . clojure-mode))
+					      auto-mode-alist))
+
+		(add-hook 'clojure-mode-hook (lambda ()
+					       (clj-refactor-mode 1)
+					       (cljr-add-keybindings-with-prefix "C-c C-m")))
+
+		(define-key clojure-mode-map (kbd "C-:") 'cljr-cycle-stringlike)
+		(define-key clojure-mode-map (kbd "C->") 'cljr-cycle-coll)
+
+		(defun live-warn-when-cider-not-connected ()
+		  (interactive)
+		  (message "nREPL server not connected. Run M-x cider or M-x cider-jack-in to connect."))
+
+		(define-key clojure-mode-map (kbd "C-M-x")   'live-warn-when-cider-not-connected)
+		(define-key clojure-mode-map (kbd "C-x C-e") 'live-warn-when-cider-not-connected)
+		(define-key clojure-mode-map (kbd "C-c C-e") 'live-warn-when-cider-not-connected)
+		(define-key clojure-mode-map (kbd "C-c C-l") 'live-warn-when-cider-not-connected)
+		(define-key clojure-mode-map (kbd "C-c C-r") 'live-warn-when-cider-not-connected)
+
+		(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+		(setq nrepl-hide-special-buffers t)
+		(setq cider-repl-pop-to-buffer-on-connect nil)
+		(setq cider-auto-select-error-buffer t)
+		(setq cider-repl-print-length 100) ; the default is nil, no limit
+		(setq cider-repl-history-size 1000) ; the default is 500
+		(setq cider-repl-history-file (concat my-tmp-dir "/cider-repl-history"))
+		(define-clojure-indent
+		  (defroutes 'defun)
+		  (GET 2)
+		  (POST 2)
+		  (PUT 2)
+		  (DELETE 2)
+		  (HEAD 2)
+		  (ANY 2)
+		  (context 2))
+
+		(defun live-windows-hide-eol ()
+		  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+		  (interactive)
+		  (setq buffer-display-table (make-display-table))
+		  (aset buffer-display-table ?\^M []))
+
+		(when (eq system-type 'windows-nt)
+		  (add-hook 'nrepl-mode-hook 'live-windows-hide-eol ))
+
+		(add-hook 'cider-repl-mode-hook
+			  (lambda ()
+			    (cider-turn-on-eldoc-mode)
+			    (paredit-mode 1)))
+
+		(add-hook 'cider-mode-hook
+			  (lambda ()
+			    (cider-turn-on-eldoc-mode)
+			    (paredit-mode 1)))
+
+		(setq cider-popup-stacktraces nil)
+		(setq cider-popup-stacktraces-in-repl nil)
+		(add-to-list 'same-window-buffer-names "*cider*")
+
+		;;Auto Complete
+		(add-hook 'cider-mode-hook 'ac-nrepl-setup)
+		(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+
+		(eval-after-load "auto-complete"
+		  '(add-to-list 'ac-modes 'cider-mode))
+
+		;; Specify the print length to be 100 to stop infinite sequences killing
+		;; things. This might be dangerous for some people relying on
+		;; *print-length* being larger. Consider a work around
+		(defun live-nrepl-set-print-length ()
+		  (nrepl-send-string-sync "(set! *print-length* 100)" "clojure.core"))
+
+		(add-hook 'nrepl-connected-hook 'live-nrepl-set-print-length)
+
+		(setq nrepl-port "4555")
+
+		(add-hook 'clojure-mode-hook 'subword-mode)
+		(add-hook 'cider-repl-mode-hook 'subword-mode)
+		(add-hook 'cider-repl-mode-hook 'paredit-mode)
+		(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
+
+		(cider-repl-toggle-pretty-printing)
+
+
+		))

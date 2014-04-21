@@ -1,0 +1,6 @@
+(:name yaml-mode-configuration
+       :type builtin
+       :depends (yaml-mode)
+       :after (progn
+		(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+		(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))))

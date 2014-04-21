@@ -1,0 +1,3 @@
+(:name highlight-tail
+       :type emacswiki
+       :features highlight-tail)

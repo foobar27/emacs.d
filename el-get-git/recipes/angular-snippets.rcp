@@ -1,0 +1,6 @@
+(:name angular-snippets
+       :website "https://github.com/magnars/angular-snippets.el"
+       :depends (yasnippet s dash)       
+       :description "Yasnippets for AngularJS."
+       :type github
+       :pkgname "magnars/angular-snippets.el")

@@ -1,0 +1,35 @@
+(:name cosmetics-configuration
+       :type builtin
+       :description "Meaningful cosmetic changes for effective emacs usage."
+       :depends (wc-mode-configuration volatile-highlights highlight-tail color-theme smooth-scrolling)
+       :after (progn
+		(setq inhibit-splash-screen t)
+		(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+		(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+		(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+		(defalias 'yes-or-no-p 'y-or-n-p)
+
+		(line-number-mode 1)
+		(column-number-mode 1)
+		(global-hl-line-mode)
+		(setq ring-bell-function 'ignore)
+
+
+		(defun fullscreen ()
+		  (interactive)
+		  (set-frame-parameter nil 'fullscreen
+				       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
+		(global-set-key [f11] 'fullscreen)
+
+		(setq mouse-yank-at-point t)
+
+		(setq color-theme-is-global t)
+		(require 'ansi-color)
+		(ansi-color-for-comint-mode-on)
+
+		(setq font-lock-maximum-decoration t
+		      color-theme-is-global t)
+
+		;; Line-wrapping
+		(set-default 'fill-column 80)
+		))

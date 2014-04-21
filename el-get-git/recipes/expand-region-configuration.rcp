@@ -1,0 +1,5 @@
+(:name expand-region-configuration
+       :type builtin
+       :depends (expand-region)
+       :after (progn 
+		(define-key global-map (kbd "C-=") 'er/expand-region)))

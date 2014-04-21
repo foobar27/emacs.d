@@ -1,0 +1,9 @@
+(:name cua
+       :type builtin
+       :description "enable cua-mode for rectangular selections"
+       :after (progn
+		(require 'cua-base)
+		(require 'cua-gmrk)
+		(require 'cua-rect)
+		(cua-mode 1)
+		(setq cua-enable-cua-keys nil)))
