@@ -37,14 +37,14 @@
 
 		(setq js-indent-level 2)
 
-		 (require 'angular-snippets)
-		 ;;(add-hook 'web-mode-hook #'(lambda () (set (make-local-variable 'yas-extra-modes) 'html-mode)))
+		(require 'angular-snippets)
+		;;(add-hook 'web-mode-hook #'(lambda () (set (make-local-variable 'yas-extra-modes) 'html-mode)))
 
-		 (autoload 'tern-mode "tern.el" nil t)
-		 (add-hook 'js-mode-hook (lambda () (tern-mode t)))
-		 (eval-after-load 'tern
-		   '(progn
-		      (require 'tern-auto-complete)
-		      (tern-ac-setup)))
+		(autoload 'tern-mode "tern.el" nil t)
+		(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+		(eval-after-load 'tern
+		  '(progn
+		     (require 'tern-auto-complete)
+		     (tern-ac-setup)))
 
 		))
