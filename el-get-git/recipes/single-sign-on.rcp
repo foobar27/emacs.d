@@ -6,32 +6,5 @@
 		(epa-file-enable)
 
 		(require 'auth-source)
-		(setq auth-sources '((:source (concat my-private-dir "/.authinfo.gpg"))))
-		
-
-		;; TODO remove the following:
-
-		(defun single-sign-on/get-secrets ()
-		  (if (not (bound-p single-sign-on/secrets))
-		      (let ((secrets-file (concat my-private-dir "/secrets.el.gpg")))
-			(setq single-sign-on/secrets
-			      (if (file-exists-p secrets-file)
-				  (load-library secrets-file)))))
-		  single-sign-on/secrets)
-		
-		(defun single-sign-on/get-secret (key)
-		  (plist-get (single-sign-on/get-secrets) key))
-
-		(defun single-sign-on/put-secret (key value)
-		  (plist-put (single-sign-on/get-secrets) key value))
-
-		;; TODO prompt-secret
-		(defun single-sign-on/prompt-secret)
-
-		(defun single-sign-on/get-or-prompt-secret (key prompt)
-		  (or (single-sign-on/get-secret key)
-		      (let ((secret (single-sign-on/prompt-secret prompt)))
-			(when secret
-			  (single-sign-on/put-secret key secret)
-			  secret))))
+		(setq auth-sources `((:source ,(concat my-private-dir "/.authinfo.gpg"))))
 		))

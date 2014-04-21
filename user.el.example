@@ -62,7 +62,7 @@
 	 clojure-configuration
 	 cpp-configuration
 
-;;	 erc-configuration
+	 erc-configuration
 
 	 sebastien-window-keys
 	 )
