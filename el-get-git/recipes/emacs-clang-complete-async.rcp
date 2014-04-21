@@ -1,0 +1,20 @@
+(:name emacs-clang-complete-async
+       :type github
+
+       ;; cannot take the official source until the following pull request has been merged:
+       ;; https://github.com/Golevka/emacs-clang-complete-async/pull/56
+       ;; :pkgname "Golevka/emacs-clang-complete-async"
+       :pkgname "straszheim/emacs-clang-complete-async"
+
+       :build (("make"))
+       :after (progn
+		(require 'auto-complete-clang-async)
+		(setq the-ac-clang-executable (concat my-base-dir "/el-get/emacs-clang-complete-async/clang-complete"))
+		
+		(defun ac-cc-mode-setup ()
+		  (setq ac-clang-complete-executable the-ac-clang-executable)
+		  (setq ac-sources '(ac-source-clang-async))
+		  (ac-clang-launch-completion-process))
+		
+		(add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+		))
