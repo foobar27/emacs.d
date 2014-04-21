@@ -35,6 +35,5 @@
 (add-to-list 'el-get-recipe-path (concat my-base-dir "/el-get-git/recipes"))
 
 (load-file (concat my-base-dir "/user.el"))
-(el-get 'sync my-packages)
 
 (el-get 'sync my-packages)
