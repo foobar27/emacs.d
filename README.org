@@ -1,0 +1,54 @@
+* Introduction
+
+I'm currently migrating my configuration from [[http://overtone.github.com/emacs-live/][emacs-live]] to a custom [[http://tapoueh.org/emacs/el-get.html][el-get]]
+based infrastructure. Some parts of the configuration are directly taken from
+emacs-live, but I hope to clean everything up within the next days.
+
+* State of the Project
+
+Don't use it. It's barely tested. I don't know if I will have time to work on
+it.
+
+* Installation
+
+Clone the repository into =~/.emacs.d= and copy
+[[user.el.example][user.el.example] to =user.el=.
+
+* Some Features
+
+** JavaScript development
+
+JavaScript auto-complete is done via [[http://ternjs.net/][ternjs]]. You should probably create a
+=.tern-project= file in your javascript project. Here is an example for an
+[[http://angularjs.org/][angularjs]] project:
+
+#+BEGIN_SRC js
+{
+  "libs": [
+    "browser",
+    "jquery",
+    "ecma5",
+    "underscore",
+    "markdown"
+  ],
+  "plugins": {
+    "angular": "./"
+  }
+}
+#+END_SRC
+
+** C++/CMake development
+
+You should compile your C++-project with:
+
+#+BEGIN_SRC sh
+cd my-project
+mkdir build
+CC=/usr/bin/clang CXX=/usr/bin/clang++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
+#+END_SRC
+
+The you need to put a =.dir-locals.el= file into the root directory of your project:
+#+BEGIN_SRC emacs-lisp
+((nil . ((cmake-build-directory "/absolute/path/to/build-directory))))
+#+END_SRC
+
