@@ -62,6 +62,8 @@
 	 clojure-configuration
 	 cpp-configuration
 
+	 gnus-configuration
+
 	 erc-configuration
 
 	 sebastien-window-keys

@@ -59,6 +59,7 @@ Required packages: =mpop=, =kwalletcli=
 #+BEGIN_SRC sh
 cp ~/.emacs.d/private/.mpoprc{.example,}
 cp ~/.emacs.d/private/mail-passwords.sh{.example,}
+cp ~/.emacs.d/private/.gnus{.example,}
 mkdir -p ~/Mail/mbox
 #+END_SRC
 
