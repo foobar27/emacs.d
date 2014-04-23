@@ -1,0 +1,12 @@
+defaults
+tls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+tls_starttls off
+delivery mbox ~/Mail/mbox/mpop
+
+account myaccount
+host pop.gmail.com
+user myaccount@gmail.com
+passwordeval kwalletcli -f Passwords -e MyAccount
+
+account default : myaccount

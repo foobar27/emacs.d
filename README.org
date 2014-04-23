@@ -12,9 +12,9 @@ it.
 * Installation
 
 Clone the repository into =~/.emacs.d= and copy
-[[user.el.example][user.el.example] to =user.el=.
+=user.el.example= to =user.el=.
 
-* Some Features
+* Selected Features
 
 ** JavaScript development
 
@@ -52,3 +52,19 @@ The you need to put a =.dir-locals.el= file into the root directory of your proj
 ((nil . ((cmake-build-directory "/absolute/path/to/build-directory))))
 #+END_SRC
 
+** E-Mail
+
+Required packages: =mpop=, =kwalletcli=
+
+#+BEGIN_SRC sh
+cp ~/.emacs.d/private/.mpoprc{.example,}
+cp ~/.emacs.d/private/mail-passwords.sh{.example,}
+mkdir -p ~/Mail/mbox
+#+END_SRC
+
+Edit the =~/.emacs.d/private/.mpoprc= (and potentially =~/.emacs.d./private/mail-passwords.sh= if you chose different kwallet folders).
+
+The following script downloads the e-mails in an infinite loop. I added it to my =~./xinitrc= (as it needs access to kwallet via X)
+#+BEGIN_SRC sh
+./.emacs.d/bin/download-mail.sh
+#+END_SRC
