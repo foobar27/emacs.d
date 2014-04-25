@@ -62,6 +62,8 @@
 	 clojure-configuration
 	 cpp-configuration
 
+	 twitter-configuration
+
 	 gnus-configuration
 
 	 erc-configuration

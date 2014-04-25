@@ -1,0 +1,6 @@
+(:name twitter-configuration
+       :type builtin
+       :depends (twittering-mode)
+       :post-init (progn
+		    (require 'twittering-mode)
+		    (setq twittering-use-master-password t)))
