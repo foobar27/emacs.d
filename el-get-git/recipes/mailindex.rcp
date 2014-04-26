@@ -1,0 +1,5 @@
+(:name mailindex
+       :type github
+       :description "Integrate Gnus with mailindex"
+       :pkgname "marktriggs/mailindex"
+       :load-path "contrib")

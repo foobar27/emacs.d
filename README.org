@@ -56,7 +56,7 @@ The you need to put a =.dir-locals.el= file into the root directory of your proj
 
 Required packages: =mpop=, =kwalletcli=
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC shell
 cp ~/.emacs.d/private/.mpoprc{.example,}
 cp ~/.emacs.d/private/mail-passwords.sh{.example,}
 cp ~/.emacs.d/private/.gnus{.example,}
@@ -66,6 +66,17 @@ mkdir -p ~/Mail/mbox
 Edit the =~/.emacs.d/private/.mpoprc= (and potentially =~/.emacs.d./private/mail-passwords.sh= if you chose different kwallet folders).
 
 The following script downloads the e-mails in an infinite loop. I added it to my =~./xinitrc= (as it needs access to kwallet via X)
-#+BEGIN_SRC sh
+#+BEGIN_SRC shell
 ./.emacs.d/bin/download-mail.sh
 #+END_SRC
+
+For full-text indexing you need to install leiningen and run:
+
+#+BEGIN_SRC shell
+cp ~/.emacs.d/private/mailindex-config.clj{.example,}
+# please adjust your home directory in mailindex-config.clj
+cd ~/.emacs.d/el-get/mailindex/
+lein uberjar
+java -jar target/mailindex-0.1.0-SNAPSHOT-standalone.jar --config-file ~/.emacs.d/private/mailindex-config.clj
+#+END_SRC
+
