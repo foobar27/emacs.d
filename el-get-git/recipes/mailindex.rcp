@@ -2,4 +2,6 @@
        :type github
        :description "Integrate Gnus with mailindex"
        :pkgname "marktriggs/mailindex"
-       :load-path "contrib")
+       :build (("mkdir" "lisp")
+	       ("cp" "contrib/mailindex.el" "lisp/"))
+       :load-path "lisp")

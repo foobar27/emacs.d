@@ -1,6 +1,6 @@
 (:name gnus-configuration
        :type builtin
-       :depends (emacs-w3m mailindex)
+       :depends (emacs-w3m mailindex gnus)
        :prepare (progn
 		  (defcustom gnus-pack-prefer-text t
 		    "Prefer the text representation when displaying e-mails in gnus."
