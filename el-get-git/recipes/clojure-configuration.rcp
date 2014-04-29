@@ -62,6 +62,7 @@
 		(setq cider-repl-history-size 1000) ; the default is 500
 		(setq cider-repl-history-file (concat my-tmp-dir "/cider-repl-history"))
 		(define-clojure-indent
+		  (match 'defun)
 		  (defroutes 'defun)
 		  (GET 2)
 		  (POST 2)
