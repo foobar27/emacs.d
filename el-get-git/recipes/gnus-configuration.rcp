@@ -1,6 +1,6 @@
 (:name gnus-configuration
        :type builtin
-       :depends (emacs-w3m mailindex gnus)
+       :depends (emacs-w3m mailindex gnus single-sign-on)
        :prepare (progn
 		  (defcustom gnus-pack-prefer-text t
 		    "Prefer the text representation when displaying e-mails in gnus."
@@ -10,6 +10,9 @@
 		    (require 'gnus-load)
 		    (require 'w3m)
 		    (setq gnus-pack-use-w3m nil)
+
+		    (setq message-default-charset (quote utf-8))
+
 		    (when (not (or (eq system-type 'windows-nt)
 				   (eq system-type 'cygwin)))
 		      (require 'w3m-load)
@@ -50,10 +53,26 @@
 			    nnmail-mail-splitting-decodes t)
 		      (add-hook 'message-mode-hook 'turn-on-auto-fill))
 
+		    (defun smtp-credentials (host nick-name)
+		      (let* ((auth-source-creation-prompts
+			      '((secret . "Smtp password for %u@%h: ")))
+			     (found (nth 0 (auth-source-search :max 1
+							       :host host
+							       :user nick-name
+							       :create t))))
+			(if found
+			    (let ((secret (plist-get found :secret)))
+			      (let ((save-function (plist-get found :save-function)))
+				(when (functionp save-function)
+				  (funcall save-function)))
+			      (if (functionp secret)
+				  (funcall secret)
+				secret)))))
 
-		    (defun gnus-pack-setup-gmail-smtp (email password)
+		    (defun gnus-pack-setup-gmail-smtp (email)
 		      (setq smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-			    smtpmail-auth-credentials `(("smtp.gmail.com" 587 ,email ,password))
+			    smtpmail-auth-credentials `(("smtp.gmail.com" 587 ,email
+							 ,(smtp-credentials "smtp.gmail.com" email)))
 			    smtpmail-default-smtp-server "smtp.gmail.com"
 			    smtpmail-smtp-server "smtp.gmail.com"
 			    smtpmail-smtp-service 587))

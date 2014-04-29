@@ -4,6 +4,8 @@
 (add-to-list 'el-get-recipe-path (concat my-base-dir "/el-get-user/recipes"))
 (add-to-list 'el-get-recipe-path (concat my-base-dir "/el-get-git/recipes"))
 
+(gnus-pack-setup-gmail-smtp "my.account@gmail.com")
+
 (setq
  el-get-sources
  '(el-get                   
