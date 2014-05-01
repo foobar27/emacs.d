@@ -1,6 +1,6 @@
 (:name gnus-configuration
        :type builtin
-       :depends (emacs-w3m mailindex gnus single-sign-on)
+       :depends (emacs-w3m mailindex gnus single-sign-on bbdb-configuration)
        :prepare (progn
 		  (defcustom gnus-pack-prefer-text t
 		    "Prefer the text representation when displaying e-mails in gnus."
@@ -151,6 +151,10 @@
 			   (empty-common-prefix prev this)
 			   "."))))
 		    (setq gnus-group-line-format "%M%S%p%P%5y:%B%(%ug%)\n")
+
+		    ;; bbdb binding
+		    (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+		    (add-hook 'message-setup-hook 'bbdb-define-all-aliases) 
 
 		    ;; buffer switching, see: http://www.emacswiki.org/emacs/SwitchToGnus
 		    (defun switch-to-gnus (&optional arg)

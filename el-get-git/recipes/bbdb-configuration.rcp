@@ -1,0 +1,31 @@
+(:name bbdb-configuration
+       :type builtin
+       :depends (bbdb)
+       :post-init (progn 
+		    
+		    (require 'bbdb)
+		    (bbdb-initialize 'gnus 'message)
+		    (bbdb-mua-auto-update-init 'gnus 'message)
+		    (setq bbdb-pop-up-window-size 5)
+		    (setq bbdb-message-all-addresses t)
+		    ;; What do we do when invoking bbdb interactively
+		    (setq bbdb-mua-update-interactive-p '(query . create))
+
+		    (add-hook
+		     'gnus-summary-mode-hook
+		     (lambda ()
+		       (define-key gnus-summary-mode-map (kbd ";") 'bbdb-mua-edit-field)
+		       ))
+
+
+		    (global-set-key (kbd "C-c b") 'bbdb)
+		    
+		    (setq bbdb/mail-auto-create-p 'bbdb-ignore-some-messages-hook)
+		    (setq bbdb/news-auto-create-p 'bbdb-ignore-some-messages-hook)
+		    (setq bbdb-ignore-some-messages-alist
+		    	  '(("From" . ".+\.invalid")
+			    ("From" . "no.?reply\\|DAEMON\\|daemon\\|facebookmail\\|twitter")
+		    	    ("From" . "@reply\.github\.com>")
+		    	    ("From" . "@public\.gmane\.org")))
+
+		    ))
