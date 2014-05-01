@@ -4,15 +4,16 @@
 (add-to-list 'el-get-recipe-path (concat my-base-dir "/el-get-user/recipes"))
 (add-to-list 'el-get-recipe-path (concat my-base-dir "/el-get-git/recipes"))
 
-(gnus-pack-setup-gmail-smtp "my.account@gmail.com")
-
 (setq
  el-get-sources
  '(el-get                   
    ;; (:name elisp-slime-nav
    ;; 	  :after (progn
    ;; 		   (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))))
-   ))
+    (:name gnus-configuration
+	  :after (progn
+		   (gnus-pack-setup-gmail-smtp "my.account@gmail.com")))
+  ))
 
 ;; TODO bbdb jabber
 (setq my-packages
