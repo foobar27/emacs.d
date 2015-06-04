@@ -38,3 +38,6 @@
 (load-file (concat my-base-dir "/user.el"))
 
 (el-get 'sync my-packages)
+
+(load "server")
+(unless (server-running-p) (server-start))

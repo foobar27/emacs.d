@@ -5,6 +5,9 @@
        :after (progn
 		;; Fix conflicts (http://orgmode.org/org.html#Conflicts)
 
+		(require 'org-checklist)
+
+		
 		;; windmove compatibility
 		(add-hook 'org-shiftup-final-hook 'windmove-up)
 		(add-hook 'org-shiftleft-final-hook 'windmove-left)
@@ -22,7 +25,63 @@
 
 		(define-key global-map "\C-cl" 'org-store-link)
 		(define-key global-map "\C-ca" 'org-agenda)
+		(define-key global-map "\C-cc" 'org-capture)
+
+
+		(setq org-enforce-todo-checkbox-dependencies t)
 		
+		;; mnemonics:
+		;; - t: todo
+		;; - i: idea
+		;; - k: task
+		;; - d: done
+		;; - p: processed
+		;; - x: rejected
+		;; - m: meeting
+		;; - h: habit
+
+		(setq org-todo-keywords
+		      '(;; task to be done by myself
+			(sequence "IDEA(i)" "TODO(t)" "|" "DONE(d!/!)" "REJECTED(x@/!)")
+			
+			;; task for another team member
+			(sequence "TASK(k)" "|" "DONE(d)")
+
+			;; task delegate to some team member (fire and forget)
+			(sequence "|" "DELEGATED(l)")
+
+			;; question to another team member
+			(sequence "QUESTION(q)" "|" "ANSWER(a)")
+			(sequence "MEETING(m)" "|" "PROCESSED(p)")
+			(sequence "HABIT(h)" "|" "DONE(d)" "REJECTED(x)")))
+
+		(setq org-todo-keyword-faces
+		      '(("TODO" . (:foreground "red" :weight bold))
+			("HABIT" . (:foreground "red" :weight bold))
+			("IDEA" . (:foreground "DarkOrange1"))
+			("DONE" . (:foreground "light sea green"))
+			("REJECTED" . (:foreground "pale golden rod"))
+			("PROCESSED" . (:foreground "pale golden rod"))
+			("TASK" . (:foreground "light slate blue" :weight bold))))
+
+		(setq org-capture-templates
+		      '(
+			("t" "Todo" entry (file+headline "/home/sebastien/trendiction/scratchpad.org" "Tasks")
+			 "* TODO %?\n  SCHEDULED: <%(org-read-date nil nil \"+1d\")>\n%i")
+			;; TODO link to agenda for all the colleagues
+			("m" "Meeting Minutes" entry (file+headline "/home/sebastien/trendiction/scratchpad.org" "Orga")
+			 "* MEETING %^{Subject}\n  SCHEDULED: %t%^{person}p\n\n%?" :clock-in t :clock-resume t)
+			("h" "Habit" entry (file+headline "/home/sebastien/trendiction/scratchpad.org" "Habits")
+			 "* HABIT %?\nSCHEDULED: %(format-time-string \"<%Y-%m-%d .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: HABIT\n:RESET_CHECK_BOXES: t\n:END:\n")
+
+			;; monitoring-related:
+			;; TODO schedule in 3h
+			("b" "Broken Harddisk" entry (file+headline "/home/sebastien/trendiction/scratchpad.org" "Monitoring")
+			 "* TODO Broken Harddisk on %^{server}\n  SCHEDULED:<%(org-read-date t nil \"+3h\")>\n\n- [x] trigger harddisk replacement\n- [ ] start after maintenance" :immediate-finish t)
+			("t" "Hardware Test" entry (file+headline "/home/sebastien/trendiction/scratchpad.org" "Monitorng")
+			 "* TODO Hardware Test on %^{server}\n  SCHEDULED: ???")
+			))
+
 		(add-hook 'org-mode-hook
 			  (lambda ()
 			    (make-variable-buffer-local 'yas/trigger-key)

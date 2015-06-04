@@ -18,4 +18,10 @@
 		      kept-new-versions 6
 		      kept-old-versions 2
 		      version-control t)
+
+		(add-to-list 'bkup-backup-directory-info
+			     (list tramp-file-name-regexp ""))
+		(setq tramp-bkup-backup-directory-info  nil)
+
+		
 		))

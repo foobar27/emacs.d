@@ -6,7 +6,7 @@
 		    (require 'bbdb)
 		    (bbdb-initialize 'gnus 'message)
 		    (bbdb-mua-auto-update-init 'gnus 'message)
-		    (setq bbdb-pop-up-window-size 5)
+		    (setq bbdb-pop-up-window-size 0.5)
 		    (setq bbdb-message-all-addresses t)
 		    ;; What do we do when invoking bbdb interactively
 		    (setq bbdb-mua-update-interactive-p '(query . create))

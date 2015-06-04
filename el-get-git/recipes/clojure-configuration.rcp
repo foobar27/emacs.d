@@ -1,22 +1,33 @@
 (:name clojure-configuration
        :type builtin
        :depends (clojure-mode 
-		 midje-mode 
+		 ;;midje-mode 
 		 find-file-in-project
 		 align-cljlet
-		 clj-refactor
+		 ;;clj-refactor
+		 queue
 		 cider
-		 cider-decompile
-		 midje-mode
-		 ac-nrepl
+		 ;; cider-decompile
+		 ac-cider-compliment
 		 )
        :after (progn
 		(require 'clojure-mode)
-		(require 'midje-mode)
+		;;(require 'midje-mode)
 		(require 'cider)
-		(require 'ac-nrepl)
+		(require 'ac-cider)
+		(add-hook 'cider-mode-hook #'eldoc-mode)
+
+		(add-hook 'cider-mode-hook #'eldoc-mode)
+		(setq nrepl-log-messages t)
+		(setq nrepl-hide-special-buffers t)
+		
+		(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+		(add-hook 'cider-mode-hook 'ac-cider-setup)
+		(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+		(eval-after-load "auto-complete"
+		  '(add-to-list 'ac-modes 'cider-mode))
 		(require 'subword)
-		(add-hook 'clojure-mode-hook 'midje-mode)
+		;;(add-hook 'clojure-mode-hook 'midje-mode)
 		(eval-after-load 'find-file-in-project
 		  '(add-to-list 'ffip-patterns "*.clj"))
 
@@ -54,8 +65,6 @@
 		(define-key clojure-mode-map (kbd "C-c C-l") 'live-warn-when-cider-not-connected)
 		(define-key clojure-mode-map (kbd "C-c C-r") 'live-warn-when-cider-not-connected)
 
-		(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-		(setq nrepl-hide-special-buffers t)
 		(setq cider-repl-pop-to-buffer-on-connect nil)
 		(setq cider-auto-select-error-buffer t)
 		(setq cider-repl-print-length 100) ; the default is nil, no limit
@@ -70,7 +79,9 @@
 		  (DELETE 2)
 		  (HEAD 2)
 		  (ANY 2)
-		  (context 2))
+		  (context 2)
+
+		  (prop/for-all))
 
 		(defun live-windows-hide-eol ()
 		  "Do not show ^M in files containing mixed UNIX and DOS line endings."
@@ -96,8 +107,8 @@
 		(add-to-list 'same-window-buffer-names "*cider*")
 
 		;;Auto Complete
-		(add-hook 'cider-mode-hook 'ac-nrepl-setup)
-		(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+		;; (add-hook 'cider-mode-hook 'ac-nrepl-setup)
+		;; (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
 
 		(eval-after-load "auto-complete"
 		  '(add-to-list 'ac-modes 'cider-mode))

@@ -1,0 +1,31 @@
+(:name jabber-configuration
+       :type builtin
+       :post-init (progn
+		    (load "jabber-autoloads")
+		    (eval-after-load 'jabber
+		      '(progn
+
+			 (require 'jabber)
+			 
+			 (setq  jabber-history-enabled t
+				jabber-use-global-history nil
+				jabber-backlog-number 40
+				jabber-backlog-days 30
+
+				jabber-auto-reconnect t
+				)
+
+			 (defun add-jabber-account (account)
+			   ;; TODO auto-complete :password field if not set
+			   (let ((account (complete-jabber-account account)))
+			     (if (boundp jabber-account-list)
+				 (add-to-list 'jabber-account-list account)
+			       (setq jabber-account-list `(,account)))))
+			 
+			 (defun setup-google-talk (e-mail)
+			   (add-jabber-account
+			    `(,e-mail
+			      (:network-server . "talk.google.com")
+			      (:connection-type . ssl)
+			      (:port . 443)
+			      )))))))

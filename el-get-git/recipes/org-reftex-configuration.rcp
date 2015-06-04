@@ -1,0 +1,39 @@
+(:name org-reftex-configuration
+       :type builtin
+       :depends (reftex)
+       :after (progn
+		;; http://tincman.wordpress.com/2011/01/04/research-paper-management-with-emacs-org-mode-and-reftex/
+		(defun org-mode-reftex-search ()
+		  "Jump to the notes for the paper pointed to at from reftex search."
+		  (interactive)
+		  (org-open-link-from-string (format "[[notes:%s]]" (first (reftex-citation t)))))
+		
+		(define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+		(define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search)
+
+		(defun org-mode-reftex-setup ()
+		  (and (buffer-file-name) (file-exists-p (buffer-file-name))
+		       (progn
+					;enable auto-revert-mode to update reftex when bibtex file changes on disk
+			 (global-auto-revert-mode t)
+			 (reftex-parse-all)
+					;add a custom reftex cite format to insert links
+			 (reftex-set-cite-format
+			  '((?b . "[[bib:%l][%l-bib]]")
+			    (?n . "[[notes:%l][%l-notes]]")
+			    (?p . "[[papers:%l][%l-paper]]")
+			    (?t . "%t")
+			    (?h . "*** %t\n:PROPERTIES:\n:Custom_ID: %l\n:END:\n[[papers:%l][%l-paper]]")))))
+		  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+		  (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
+
+		(add-hook 'org-mode-hook 'org-mode-reftex-setup)
+
+		;; TODO move out into custom file!!!
+		(setq org-link-abbrev-alist
+		      '(("bib" . "~/trendiction/research/research.bib::%s")
+			("notes" . "~/trendiction/research/research.org::#%s")
+			("papers" . "~/trendiction/research/papers/%s.pdf")))
+
+
+		))
